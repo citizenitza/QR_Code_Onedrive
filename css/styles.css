@@ -1,0 +1,24 @@
+.hidden{
+    display: none;
+}
+.Row{
+    width: 100%;
+    float: left;
+}
+.ItemTitle{
+    float: left;
+    font-weight: bold;
+}
+.Item{
+    float: left;
+    padding-left: 10px;
+}
+
+.container{
+    width: 100%;
+    float: left;
+    padding: 10px;
+}
+.Description{
+    margin-top: 20px;
+}
