@@ -135,7 +135,7 @@ function LoadQRCodes(){
     let inputValue = document.getElementById("ItemNr").value; 
     var ID = "qrcode_" + inputValue;
     var newQRCode = '<div class="QR_Row">  <div class="Description">QR code for item number:' + inputValue + '</div>  <div id="'+ ID + '" style="width:200px; height:200px; margin-top:15px;"></div></div>'
-    document.getElementById("QR_Code_wrap").innerHTML += newQRCode;
+    document.getElementById("QR_Code_wrap").innerHTML = newQRCode;
     var URL = "https://citizenitza.github.io/QR_Code_Onedrive/index.html?index=" + inputValue;
     var qrcode = new QRCode(document.getElementById(ID), {
         width : 200,
