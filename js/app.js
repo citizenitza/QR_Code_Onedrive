@@ -1,14 +1,13 @@
-			/*
-			* This code uses the Microsoft Office Excel JavaScript object model to programmatically insert the
-			* Excel Web App into a div with id=myExcelDiv. The full API is documented at
-			* https://msdn.microsoft.com/library/hh315812.aspx. There you can find out how to programmatically get
-			* values from your Excel file and how to use the rest of the object model. 
-			*/
-		
-			// Use this file token to reference Book1.xlsx in the Excel APIs
-			// Replace the the placeholder for the  filetoken with your value
+            //test table:
+            //https://onedrive.live.com/edit.aspx?resid=2F5C502D2761C73!792&ithint=file%2cxlsx&authkey=!ACxhGwfSQOn7RcI
             var fileToken = "2F5C502D2761C73!792/-4923638281765748078/t=0&s=0&v=!ACxhGwfSQOn7RcI";
-			var ewa = null;
+			
+            //Work table:
+            //https://onedrive.live.com/view.aspx?resid=7B3CD0791DDF2DD1!7114&ithint=file%2cxlsx&authkey=!AJM7ysmoze_cS3c
+            var fileToken = "7B3CD0791DDF2DD1!7114/-4923638281765748078/t=0&s=0&v=!AJM7ysmoze_cS3c";
+
+            var ewa = null;
+            var DataArray;
 		
 			// Run the Excel load handler on page load.
 			if (window.attachEvent)
@@ -23,7 +22,7 @@
 			{
 				var props = {
 					uiOptions: {
-						showGridlines: false,
+						showGridlines: true,
 						showRowColumnHeaders: false,
 						showParametersTaskPane: false
 					},
@@ -31,12 +30,13 @@
 						allowTypingAndFormulaEntry: false,
 						allowParameterModification: false,
 						allowSorting: false,
-						allowFiltering: false,
+						allowFiltering: true,
 						allowPivotTableInteractivity: false
 					}
 				};
 				// Embed workbook using loadEwaAsync
 				Ewa.EwaControl.loadEwaAsync(fileToken, "myExcelDiv2", props, onEwaLoaded);
+                
 			}
 		
 			function onEwaLoaded(asyncResult)
@@ -47,7 +47,7 @@
 					// ewa = asyncResult.getEwaControl();
 					ewa = Ewa.EwaControl.getInstances().getItem(0);
                     console.log("ewa OK");
-					
+					LoadData();
 				}
 				else
 				{
@@ -56,14 +56,14 @@
 				// ...
 			}    
 
-			function test(){
+			function LoadData(){
 				var range = ewa.getActiveWorkbook().getActiveSelection();
 				console.log(range.getSheet().getName());
 				var rowCnt = Number(range.getRow()) + 1;
                 console.log(rowCnt);
 				var colCnt = Number(range.getColumn());
                 // ewa.getActiveWorkbook().getActiveSelection ().getValuesAsync(0,getRangeValues,null);
-                var range2 = ewa.getActiveWorkbook().getActiveSheet().getRange(0,0,rowCnt,20);
+                var range2 = ewa.getActiveWorkbook().getActiveSheet().getRange(0,0,400,20);
                 console.log(range2);
                 range2.getValuesAsync(0,getRangeValues,range2);    
 			}
@@ -71,6 +71,8 @@
             function getRangeValues(asyncResult){
 				// Get the value from asyncResult if the asynchronous operation was successful.
 
+                //clear
+                DataArray = [];
 					// Get range from user context.
 					var range = asyncResult.getUserContext();
 					
@@ -84,10 +86,21 @@
 					// Loop through the array of range values.
 					for (var i = 1; i < values.length; i++)
 					{
-					for (var j = 0; j < values[i].length; j++)
-					{
-							output= output + values[i][j] + '\n'
-					}
+                        output += values[i][0] + "\n";
+
+                        var newDataItem = {
+                            Nr: values[i][0],
+                            Code: values[i][2],
+                            Stock: values[i][8],
+                            Price: values[i][18]
+                          };
+                          if(Number(newDataItem.Nr)>0){
+                              DataArray.push(newDataItem);  
+                          }
+					// for (var j = 0; j < values[i].length; j++)
+					// {
+					// 		output= output + values[i][j] + '\n'
+					// }
 					}
 					
 					output = output + "********";
