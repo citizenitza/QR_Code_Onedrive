@@ -68,7 +68,6 @@ function LoadData(){
 
 function getRangeValues(asyncResult){
     // Get the value from asyncResult if the asynchronous operation was successful.
-
     //clear
     DataArray = [];
         // Get range from user context.
@@ -84,8 +83,7 @@ function getRangeValues(asyncResult){
         // Loop through the array of range values.
         for (var i = 1; i < values.length; i++)
         {
-            output += values[i][0] + "\n";
-
+            //output += values[i][0] + "\n";
             var newDataItem = {
                 Nr: values[i][0],
                 Code: values[i][2],
@@ -95,14 +93,8 @@ function getRangeValues(asyncResult){
                 if(Number(newDataItem.Nr)>0){
                     DataArray.push(newDataItem);  
                 }
-        // for (var j = 0; j < values[i].length; j++)
-        // {
-        // 		output= output + values[i][j] + '\n'
-        // }
         }
-        
-        output = output + "********";
-
+        //output = output + "********";
         // Display each value in the array returned by getValuesAsync.
         // alert(output);
         GetData();
