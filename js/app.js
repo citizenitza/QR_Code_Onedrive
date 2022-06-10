@@ -86,9 +86,9 @@ function getRangeValues(asyncResult){
             //output += values[i][0] + "\n";
             var newDataItem = {
                 Nr: values[i][0],
-                Code: values[i][2],
-                Stock: values[i][8],
-                Price: values[i][18]
+                Code: values[i][7],
+                Stock: values[i][15],
+                Price: values[i][14]
                 };
                 if(Number(newDataItem.Nr)>0){
                     DataArray.push(newDataItem);  
